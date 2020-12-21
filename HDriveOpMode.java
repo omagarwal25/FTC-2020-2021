@@ -1,6 +1,6 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "MainShooter2", group = "")
 public class MainShooter2 extends LinearOpMode {
@@ -8,6 +8,7 @@ public class MainShooter2 extends LinearOpMode {
   private DcMotor leftDrive;
   private DcMotor rightDrive;
   private DcMotor strafeDrive;
+  private DcMotor shooter;
   private double forwardBackwardPower;
   private double strafePower;
   private double forwardPowerMod;
@@ -21,6 +22,7 @@ public class MainShooter2 extends LinearOpMode {
     leftDrive = hardwareMap.dcMotor.get("leftDrive");
     rightDrive = hardwareMap.dcMotor.get("rightDrive");
     strafeDrive = hardwareMap.dcMotor.get("strafeDrive");
+    shooter = hardwareMap.dcMotor.get("shooter");
 
     forwardPowerMod = 1;
     strafePowerMod = 1;
@@ -39,6 +41,13 @@ public class MainShooter2 extends LinearOpMode {
     }
     while (opModeIsActive()) {
       // Put loop blocks here.
+
+      if (gamepad1.a) {
+        shooter.setPower(-0.6);
+      }
+      else {
+        shooter.setPower(0);
+      }
 
       forwardBackwardPower = gamepad1.left_stick_y*forwardPowerMod;
       strafePower = gamepad1.left_stick_x*strafePowerMod;
