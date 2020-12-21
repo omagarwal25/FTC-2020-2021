@@ -1,64 +1,61 @@
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "MainShooter2", group = "")
-public class MainShooter2 extends LinearOpMode {
+@TeleOp(name = "BasicOpMode (Blocks to Java)", group = "")
+public class BasicOpMode extends LinearOpMode {
 
   private DcMotor leftDrive;
   private DcMotor rightDrive;
   private DcMotor strafeDrive;
   private DcMotor shooter;
-  private double forwardBackwardPower;
-  private double strafePower;
-  private double forwardPowerMod;
-  private double strafePowerMod;
 
   /**
    * This function is executed when this Op Mode is selected from the Driver Station.
    */
   @Override
   public void runOpMode() {
-    leftDrive = hardwareMap.dcMotor.get("leftDrive");
-    rightDrive = hardwareMap.dcMotor.get("rightDrive");
-    strafeDrive = hardwareMap.dcMotor.get("strafeDrive");
+    leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
+    rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
+    strafeDrive = hardwareMap.get(DcMotor.class, "strafeDrive");
     shooter = hardwareMap.dcMotor.get("shooter");
 
-    forwardPowerMod = 1;
-    strafePowerMod = 1;
-    forwardBackwardPower = 0*forwardPowerMod;
-    strafePower = 0*strafePowerMod;
-
-    telemetry.addData("forwardBackwardPower", forwardBackwardPower);
-    telemetry.addData("strafePower", strafePower);
-    telemetry.addData("fowardBackwardEncoding", leftDrive.getCurrentPosition());
-    telemetry.addData("strafeEncoding", strafeDrive.getCurrentPosition());
-
-    // Put initialization blocks here.
+    // Reverse one of the drive motors.
     waitForStart();
     if (opModeIsActive()) {
+      leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      strafeDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       // Put run blocks here.
-    }
-    while (opModeIsActive()) {
-      // Put loop blocks here.
-
-      if (gamepad1.a) {
-        shooter.setPower(-0.6);
+      while (opModeIsActive()) {
+        // Put loop blocks here.
+        // Use left stick to drive and right stick to turn
+        // The Y axis of a joystick ranges from -1 in its topmost position
+        // to +1 in its bottommost position. We negate this value so that
+        // the topmost position corresponds to maximum forward power.
+        leftDrive.setPower(-gamepad1.left_stick_y * 0.6);
+        rightDrive.setPower(-gamepad1.left_stick_y * 0.6);
+        strafeDrive.setPower(-gamepad1.left_stick_x * 0.6);
+        telemetry.addData("LEncoder", leftDrive.getCurrentPosition());
+        telemetry.addData("REncoder", rightDrive.getCurrentPosition());
+        telemetry.addData("Left Pow", leftDrive.getPower());
+        telemetry.addData("Right Pow", rightDrive.getPower());
+        
+         if (gamepad1.a) {
+          shooter.setPower(-0.6);
+        }
+        else {
+          shooter.setPower(0);
+        }
+        
+        
+        
+        telemetry.update();
       }
-      else {
-        shooter.setPower(0);
-      }
-
-      forwardBackwardPower = gamepad1.left_stick_y*forwardPowerMod;
-      strafePower = gamepad1.left_stick_x*strafePowerMod;
-
-      leftDrive.setPower(forwardBackwardPower);
-      rightDrive.setPower(forwardBackwardPower);
-
-      strafeDrive.setPower(strafePower);
-
-      telemetry.update();
-
     }
   }
 }
