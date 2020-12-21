@@ -1,6 +1,6 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "MainShooter2", group = "")
 public class MainShooter2 extends LinearOpMode {
