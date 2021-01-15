@@ -37,9 +37,9 @@ public class BasicOpMode extends LinearOpMode {
         // The Y axis of a joystick ranges from -1 in its topmost position
         // to +1 in its bottommost position. We negate this value so that
         // the topmost position corresponds to maximum forward power.
-        leftDrive.setPower(-gamepad1.left_stick_y * 0.6);
-        rightDrive.setPower(-gamepad1.left_stick_y * 0.6);
-        strafeDrive.setPower(-gamepad1.left_stick_x * 0.6);
+        leftDrive.setPower(-gamepad1.left_trigger * gamepad1.left_stick_y);
+        rightDrive.setPower(gamepad1.left_trigger * gamepad1.left_stick_y);
+        strafeDrive.setPower(-gamepad1.left_trigger * gamepad1.left_stick_x);
         telemetry.addData("LEncoder", leftDrive.getCurrentPosition());
         telemetry.addData("REncoder", rightDrive.getCurrentPosition());
         telemetry.addData("Left Pow", leftDrive.getPower());
