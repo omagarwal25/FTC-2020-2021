@@ -92,10 +92,9 @@ public class main extends LinearOpMode {
        	 	sleep(5000);
        	 	shooter.setPower(0);
        	 	conveyor.setPower(0);
-
         } 
       	// CHECKS WHAT DRIVE MODE & EXECUTES
-   			else if (gamepad1.left_trigger != 0) {
+   		else if (gamepad1.left_trigger != 0) {
            rightDrive.setPower(gamepad1.left_trigger * gamepad1.right_stick_y );
         }
         else if (gamepad1.right_stick_y != 0 || gamepad1.right_stick_x != 0) {
