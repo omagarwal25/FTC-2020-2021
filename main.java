@@ -16,8 +16,8 @@ public class main extends LinearOpMode {
   private DcMotor strafeDrive;
   private DistanceSensor frontDistance;
   private DistanceSensor backDistance;
-  private Servo clawLeft;
-  private Servo clawRight;
+  //private Servo clawLeft;
+  //private Servo clawRight;
   private Double shootingDeg;
   private Double shooterTurnConstant;
   private Double distanceConstant;
@@ -36,8 +36,8 @@ public class main extends LinearOpMode {
     leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
     rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
     strafeDrive = hardwareMap.get(DcMotor.class, "strafeDrive");
-    clawLeft = hardwareMap.get(Servo.class, "clawLeft");
-    clawRight = hardwareMap.get(Servo.class, "clawRight");
+    //clawLeft = hardwareMap.get(Servo.class, "clawLeft");
+    //clawRight = hardwareMap.get(Servo.class, "clawRight");
     frontDistance = hardwareMap.get(Servo.class, "frontDistance");
     backDistance = hardwareMap.get(Servo.class, "backDistance");
 
@@ -93,17 +93,20 @@ public class main extends LinearOpMode {
        	 	shooter.setPower(0);
        	 	conveyor.setPower(0);
         } 
-      	// CHECKS WHAT DRIVE MODE & EXECUTES
-   		else if (gamepad1.left_trigger != 0) {
-           rightDrive.setPower(gamepad1.left_trigger * gamepad1.right_stick_y );
-        }
-        else if (gamepad1.right_stick_y != 0 || gamepad1.right_stick_x != 0) {
-          leftDrive.setPower(gamepad1.right_trigger * gamepad1.right_stick_y );
-        }
-        else {
-          leftDrive.setPower(gamepad1.right_trigger * gamepad1.left_stick_y);
-          rightDrive.setPower(gamepad1.right_trigger * gamepad1.left_stick_y);
-          strafeDrive.setPower(gamepad1.right_trigger * gamepad1.left_stick_x);
+      	// CHECKS WHAT DRIVE MODE & EXECUTES, SHOOTER FOR GOALS IS DONEZO
+   	    else if (gamepad1.left_stick_y != 0) {
+          if (gamepad1.right_stick_x > 0) {
+            rightDrive.setPower(gamepad1.right_stick_y);
+            leftDrive.setPower(gamepad1.right_stick_y * abs(1 - gamepad1.right_stick_x));
+          }
+          else if (gamepad1.right_stick_x > 0) {
+            leftDrive.setPower(gamepad1.right_stick_y);
+            rightDrive.setPower(gamepad1.right_stick_y * abs(1 - gamepad1.right_stick_x));
+          }
+          else {
+            leftDrive.setPower(gamepad1.right_stick_y);
+            rightDrive.setPower(gamepad1.right_stick_y);
+          }
         }
 
         if (gamepad1.cross == True) {
@@ -116,7 +119,7 @@ public class main extends LinearOpMode {
           shooter.setPower(0);
         }
         
-        if (gamepad1.triangle == True) {
+        /*if (gamepad1.triangle == True) {
         	if (clawRight.getPosition() == 0) {
         		clawRight.setPosition(1);
         		clasLeft.setPosition(1);
@@ -125,7 +128,7 @@ public class main extends LinearOpMode {
         		clawRight.setPosition(0);
         		clawLeft.setPosition(0);
         	}
-        }
+        }*/
       
         telemetry.addData("LEncoder", leftDrive.getCurrentPosition());
         telemetry.addData("REncoder", rightDrive.getCurrentPosition());
