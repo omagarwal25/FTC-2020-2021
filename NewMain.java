@@ -38,8 +38,8 @@ public class NewMain extends LinearOpMode {
     strafeDrive = hardwareMap.get(DcMotor.class, "strafeDrive");
     //clawLeft = hardwareMap.get(Servo.class, "clawLeft");
     //clawRight = hardwareMap.get(Servo.class, "clawRight");
-    frontDistance = hardwareMap.get(Servo.class, "frontDistance");
-    backDistance = hardwareMap.get(Servo.class, "backDistance");
+    frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
+    backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
 
 
     shooter = hardwareMap.get(CRServo.class, "shooter");
@@ -65,7 +65,7 @@ public class NewMain extends LinearOpMode {
       strafeDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       // Put run blocks here.
       while (opModeIsActive()) {
-        if (gamepad1.right_bumper == True) {
+        if (gamepad1.right_bumper == true) {
         	if (frontDistance.getDistance(DistanceUnit.CM) < backDistance.getDistance(DistanceUnit.CM)) {
         		while (frontDistance.getDistance(DistanceUnit.CM) < backDistance.getDistance(DistanceUnit.CM)) {
         			leftDrive.setPower(0.2);
@@ -82,10 +82,10 @@ public class NewMain extends LinearOpMode {
         	shootingDeg = Math.atan(143.51/frontDistance.getDistance(DistanceUnit.CM)) / Math.PI * 180;
         	//TURNS TO ANGLE
         	rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        	rightDrive.setTargetPosition(shootingDeg*-shooterTurnConstant);
+        	rightDrive.setTargetPosition(shootingDeg * -1 * shooterTurnConstant);
        	 	rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        	 	//CALCULATES DISTANCE THAT ROBOT IS SHOOTING
-       	 	distance = Math.sqrt(Math.pow(143.51, 2) + Math.pow( 236.22 - frontDistance, 2));
+       	 	distance = Math.sqrt(Math.pow(143.51, 2) + Math.pow( 236.22 - frontDistance.getDistance(DistanceUnit.CM), 2));
        	 	//SHOOTS RINGS
        	 	shooter.setPower(distance*distanceConstant);
        	 	conveyor.setPower(1);
@@ -97,11 +97,11 @@ public class NewMain extends LinearOpMode {
    	    else if (gamepad1.left_stick_y != 0) {
           if (gamepad1.right_stick_x > 0) {
             rightDrive.setPower(gamepad1.right_stick_y);
-            leftDrive.setPower(gamepad1.right_stick_y * abs(1 - gamepad1.right_stick_x));
+            leftDrive.setPower(gamepad1.right_stick_y * Math.abs(1 - gamepad1.right_stick_x));
           }
           else if (gamepad1.right_stick_x > 0) {
             leftDrive.setPower(gamepad1.right_stick_y);
-            rightDrive.setPower(gamepad1.right_stick_y * abs(1 - gamepad1.right_stick_x));
+            rightDrive.setPower(gamepad1.right_stick_y * Math.abs(1 - gamepad1.right_stick_x));
           }
           else {
             leftDrive.setPower(gamepad1.right_stick_y);
@@ -109,7 +109,7 @@ public class NewMain extends LinearOpMode {
           }
         }
 
-        if (gamepad1.cross == True) {
+        if (gamepad1.cross == true) {
         	conveyor.setPower(1);
         	intake.setPower(1);
         }
