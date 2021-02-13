@@ -85,7 +85,7 @@ public class NewMain extends LinearOpMode {
         	rightDrive.setTargetPosition(shootingDeg * -1 * shooterTurnConstant);
        	 	rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        	 	//CALCULATES DISTANCE THAT ROBOT IS SHOOTING
-       	 	distance = Math.sqrt(Math.pow(143.51, 2) + Math.pow( 236.22 - frontDistance.getDistance(DistanceUnit.CM), 2));
+       	 	distance = Math.sqrt(Math.pow(Math.floor(143.51), 2) + Math.pow(Math.floor(236.22 - frontDistance.getDistance(DistanceUnit.CM)), 2));
        	 	//SHOOTS RINGS
        	 	shooter.setPower(distance*distanceConstant);
        	 	conveyor.setPower(1);
