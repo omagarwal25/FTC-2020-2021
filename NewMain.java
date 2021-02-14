@@ -112,8 +112,8 @@ public class NewMain extends LinearOpMode {
         }
 
         if (gamepad1.cross == true) {
-        	conveyor.setPower(1);
-        	intake.setPower(1);
+        	conveyor.setPower(-1);
+        	intake.setPower(-1);
         }
         else {
         	conveyor.setPower(0);
