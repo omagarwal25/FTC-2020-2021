@@ -83,11 +83,11 @@ public class NewMain extends LinearOpMode {
         	shootingDeg = Math.atan(143.51/frontDistance.getDistance(DistanceUnit.CM)) / (Math.PI * 180);
         	//TURNS TO ANGLE
         	rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        	rightDrive.setTargetPosition(Math.floor(shootingDeg * shooterTurnConstant));
+        	rightDrive.setTargetPosition((int)Math.floor(shootingDeg * shooterTurnConstant));
        	 	rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
        	 	//CALCULATES DISTANCE THAT ROBOT IS SHOOTING
           rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-       	 	distance = Math.sqrt(Math.pow(Math.floor(143.51), 2) + Math.pow(Math.floor(236.22 - frontDistance.getDistance(DistanceUnit.CM)), 2));
+       	 	distance = Math.sqrt(Math.pow((int)Math.floor(143.51), 2) + Math.pow((int)Math.floor(236.22 - frontDistance.getDistance(DistanceUnit.CM)), 2));
        	 	//SHOOTS RINGS
        	 	shooter.setPower(distance*distanceConstant);
        	 	conveyor.setPower(1);
