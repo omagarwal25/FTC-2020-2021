@@ -63,7 +63,8 @@ public class NewMain extends LinearOpMode {
       leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
       strafeDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-      // Put run blocks here.
+      // Put run blocks here. 
+      
       while (opModeIsActive()) {
         if (gamepad1.right_bumper == true) {
         	if (frontDistance.getDistance(DistanceUnit.CM) < backDistance.getDistance(DistanceUnit.CM)) {
@@ -79,7 +80,7 @@ public class NewMain extends LinearOpMode {
         		rightDrive.setPower(0);
         	} 
         	//USES TRIG TO CALCULATE SHOOTING ANGLE
-        	shootingDeg = Math.atan(143.51/frontDistance.getDistance(DistanceUnit.CM)) / Math.PI * 180;
+        	shootingDeg = Math.atan(143.51/frontDistance.getDistance(DistanceUnit.CM)) / (Math.PI * 180);
         	//TURNS TO ANGLE
         	rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         	rightDrive.setTargetPosition(shootingDeg * -1 * shooterTurnConstant);
