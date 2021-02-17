@@ -14,16 +14,16 @@ public class NewMain extends LinearOpMode {
   private DcMotor leftDrive;
   private DcMotor rightDrive;
   private DcMotor strafeDrive;
-  private DistanceSensor frontDistance;
-  private DistanceSensor backDistance;
+  //private DistanceSensor frontDistance;
+  //private DistanceSensor backDistance;
   //private Servo clawLeft;
   //private Servo clawRight;
-  private Double shootingDeg;
+  //private Double shootingDeg;
   private Double shooterTurnConstant;
   private Double distanceConstant;
-  private CRServo shooter;
-  private CRServo conveyor;
-  private Double distance;
+  //private CRServo shooter;
+  //private CRServo conveyor;
+  //private Double distance;
   private CRServo intake;
 
   /**
@@ -38,13 +38,13 @@ public class NewMain extends LinearOpMode {
     strafeDrive = hardwareMap.get(DcMotor.class, "strafeDrive");
     //clawLeft = hardwareMap.get(Servo.class, "clawLeft");
     //clawRight = hardwareMap.get(Servo.class, "clawRight");
-    frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
-    backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
+    //frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
+    //backDistance = hardwareMap.get(DistanceSensor.class, "backDistance");
 
 
-    shooter = hardwareMap.get(CRServo.class, "shooter");
+    //shooter = hardwareMap.get(CRServo.class, "shooter");
     conveyor = hardwareMap.get(CRServo.class, "conveyor");
-    intake = hardwareMap.get(CRServo.class, "intake");
+    //intake = hardwareMap.get(CRServo.class, "intake");
 
     shooterTurnConstant = -0.01;
     distanceConstant = 0.10;
@@ -54,7 +54,7 @@ public class NewMain extends LinearOpMode {
     if (opModeIsActive()) {
     	rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
     	strafeDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-    	shooter.setDirection(DcMotorSimple.Direction.REVERSE);
+    	//shooter.setDirection(DcMotorSimple.Direction.REVERSE);
 
       leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
       rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -66,6 +66,7 @@ public class NewMain extends LinearOpMode {
       // Put run blocks here. 
       
       while (opModeIsActive()) {
+        /*
         if (gamepad1.right_bumper == true) {
         	if (frontDistance.getDistance(DistanceUnit.CM) < backDistance.getDistance(DistanceUnit.CM)) {
         		while (frontDistance.getDistance(DistanceUnit.CM) < backDistance.getDistance(DistanceUnit.CM)) {
@@ -94,9 +95,9 @@ public class NewMain extends LinearOpMode {
        	 	sleep(5000);
        	 	shooter.setPower(0);
        	 	conveyor.setPower(0);
-        } 
+        } */
       	// CHECKS WHAT DRIVE MODE & EXECUTES, SHOOTER FOR GOALS IS DONEZO
-   	    else if (gamepad1.left_stick_y != 0) {
+   	    if (gamepad1.left_stick_y != 0) {
           if (gamepad1.right_stick_x > 0) {
             rightDrive.setPower(gamepad1.right_stick_y);
             leftDrive.setPower(gamepad1.right_stick_y * Math.abs(1 - gamepad1.right_stick_x));
@@ -113,12 +114,12 @@ public class NewMain extends LinearOpMode {
 
         if (gamepad1.cross == true) {
         	conveyor.setPower(-1);
-        	intake.setPower(-1);
+        	//intake.setPower(-1);
         }
         else {
         	conveyor.setPower(0);
-          intake.setPower(0);
-          shooter.setPower(0);
+          //intake.setPower(0);
+          //shooter.setPower(0);
         }
         
         /*if (gamepad1.triangle == True) {
